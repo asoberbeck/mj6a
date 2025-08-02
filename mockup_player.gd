@@ -43,7 +43,7 @@ func _process(delta):
 		
 		lf.position = Vector2(0, 8) + swing_vector
 		rf.position = Vector2(0, -8) - swing_vector
-		$Feet.rotation = velocity.angle()
+		$Feet.rotation = lerp_angle($Feet.rotation, velocity.angle(), 0.2)
 	else:
 		time = 0.0
 		lf.position = Vector2(0, 8)
