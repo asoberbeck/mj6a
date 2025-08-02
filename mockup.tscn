@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://ue2jnx3xbrfq"]
+[gd_scene load_steps=12 format=4 uid="uid://ue2jnx3xbrfq"]
 
 [ext_resource type="Script" uid="uid://cuuts1n3867n7" path="res://mockup.gd" id="1_4g3pk"]
 [ext_resource type="Texture2D" uid="uid://csdakyqomg8pt" path="res://tilesheet.png" id="1_dqb14"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://r1rmiwtrb7v0" path="res://assets/right_foot.png" id="4_u731o"]
 [ext_resource type="Texture2D" uid="uid://bk41vqc8a7tcv" path="res://assets/torso.png" id="5_u731o"]
 [ext_resource type="Script" uid="uid://dlttmj4f4xl5r" path="res://aim_spot.gd" id="6_cq8ym"]
+[ext_resource type="Texture2D" uid="uid://stlqmg6xdtgs" path="res://assets/reticle.png" id="8_rho02"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pp484"]
 texture = ExtResource("1_dqb14")
@@ -87,6 +88,4 @@ texture = ExtResource("5_u731o")
 script = ExtResource("6_cq8ym")
 
 [node name="Sprite2D" type="Sprite2D" parent="AimSpot"]
-texture = ExtResource("1_dqb14")
-region_enabled = true
-region_rect = Rect2(0, 16, 16, 16)
+texture = ExtResource("8_rho02")
