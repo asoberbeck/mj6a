@@ -33,12 +33,12 @@ func _process(delta):
 	var speed = velocity.length()
 	if speed > 1.0:
 		time += delta * speed * 0.1
-		var dir = velocity.normalized()
 		var offset = sin(time * step_freq) * stride_len
-		var swing_vector = dir * offset
+		var swing_vector = Vector2(1, 0) * offset
 		
 		lf.position = Vector2(0, 8) + swing_vector
 		rf.position = Vector2(0, -8) - swing_vector
+		$Feet.rotation = velocity.angle()
 	else:
 		time = 0.0
 		lf.position = Vector2(0, 8)
