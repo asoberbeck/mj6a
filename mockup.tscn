@@ -62,7 +62,7 @@ tile_set = SubResource("TileSet_lr1yk")
 script = ExtResource("2_pp484")
 
 [node name="Camera2D" type="Camera2D" parent="Mech"]
-zoom = Vector2(2.6, 2.6)
+zoom = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mech"]
 shape = SubResource("RectangleShape2D_dqb14")

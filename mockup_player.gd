@@ -16,8 +16,13 @@ var time := 0.0
 var stride_len := 4.0
 var step_freq := 2.0
 
+# Camera input
+@export var zoom_min = 3.0
+@export var zoom_max = 1.0
+var zoom = 2.0
+
 func _physics_process(delta):
-	var input_direction = get_input()
+	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if input_direction != Vector2.ZERO:
 		velocity = velocity.move_toward(input_direction * max_speed, acceleration * delta)
 	else:
@@ -45,8 +50,20 @@ func _process(delta):
 		rf.position = Vector2(0, -8)
 
 
-func get_input():
-	return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+func _input(event):
+	var rezoom = false
+	if event.is_action_pressed("zoom_in"):
+		zoom = min(zoom + 0.1, zoom_min)
+		rezoom = true
+	elif event.is_action_pressed("zoom_out"):
+		zoom = max(zoom - 0.1, zoom_max)
+		rezoom = true
+	elif event.is_action_pressed("zoom_reset"):
+		zoom = 2.0
+		rezoom = true
+	if rezoom:
+		print(zoom)
+		$Camera2D.zoom = Vector2(zoom, zoom)
 
 func perp(vec : Vector2):
 	var perpVec := Vector2.ZERO
