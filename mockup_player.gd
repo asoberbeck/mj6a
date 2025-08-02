@@ -46,7 +46,7 @@ func _process(delta):
 
 
 func get_input():
-	return Input.get_vector("left", "right", "up", "down")
+	return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
 func perp(vec : Vector2):
 	var perpVec := Vector2.ZERO
