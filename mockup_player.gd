@@ -25,11 +25,7 @@ func _physics_process(delta):
 
 
 func _process(delta):
-	var mouse_pos = get_global_mouse_position()
-	
-	# Angular Position Update
-	var target_angle = (mouse_pos - global_position).angle()
-	pit.rotation = lerp_angle(rotation, target_angle, rot_speed)
+	pit.look_at($"../AimSpot".position) # fixme
 	
 	# Cartesian Position Update
 	move_and_slide()

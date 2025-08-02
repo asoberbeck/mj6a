@@ -75,8 +75,10 @@ texture = ExtResource("3_l68op")
 rotation = 1.5708
 texture = ExtResource("4_u731o")
 
-[node name="Torso" type="Sprite2D" parent="Mech"]
-rotation = 4.71239
+[node name="Torso" type="Node2D" parent="Mech"]
+
+[node name="TorsoSprite" type="Sprite2D" parent="Mech/Torso"]
+rotation = 1.5708
 texture = ExtResource("5_u731o")
 
 [node name="AimSpot" type="Node2D" parent="."]
