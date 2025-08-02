@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://ue2jnx3xbrfq"]
+[gd_scene load_steps=10 format=4 uid="uid://ue2jnx3xbrfq"]
 
 [ext_resource type="Texture2D" uid="uid://csdakyqomg8pt" path="res://tilesheet.png" id="1_dqb14"]
 [ext_resource type="Script" uid="uid://dar2r1d2qf1rf" path="res://mockup_player.gd" id="2_pp484"]
 [ext_resource type="Texture2D" uid="uid://cdwqq35w8ioro" path="res://assets/left_foot.png" id="3_l68op"]
 [ext_resource type="Texture2D" uid="uid://r1rmiwtrb7v0" path="res://assets/right_foot.png" id="4_u731o"]
 [ext_resource type="Texture2D" uid="uid://bk41vqc8a7tcv" path="res://assets/torso.png" id="5_u731o"]
+[ext_resource type="Script" uid="uid://dlttmj4f4xl5r" path="res://aim_spot.gd" id="6_cq8ym"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pp484"]
 texture = ExtResource("1_dqb14")
@@ -77,3 +78,11 @@ texture = ExtResource("4_u731o")
 [node name="Torso" type="Sprite2D" parent="Mech"]
 rotation = 4.71239
 texture = ExtResource("5_u731o")
+
+[node name="AimSpot" type="Node2D" parent="."]
+script = ExtResource("6_cq8ym")
+
+[node name="Sprite2D" type="Sprite2D" parent="AimSpot"]
+texture = ExtResource("1_dqb14")
+region_enabled = true
+region_rect = Rect2(0, 16, 16, 16)
