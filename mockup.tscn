@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=4 uid="uid://ue2jnx3xbrfq"]
+[gd_scene load_steps=11 format=4 uid="uid://ue2jnx3xbrfq"]
 
+[ext_resource type="Script" uid="uid://cuuts1n3867n7" path="res://mockup.gd" id="1_4g3pk"]
 [ext_resource type="Texture2D" uid="uid://csdakyqomg8pt" path="res://tilesheet.png" id="1_dqb14"]
 [ext_resource type="Script" uid="uid://dar2r1d2qf1rf" path="res://mockup_player.gd" id="2_pp484"]
 [ext_resource type="Texture2D" uid="uid://cdwqq35w8ioro" path="res://assets/left_foot.png" id="3_l68op"]
@@ -48,6 +49,7 @@ sources/0 = SubResource("TileSetAtlasSource_pp484")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqb14"]
 
 [node name="Mockup" type="Node2D"]
+script = ExtResource("1_4g3pk")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-498, -234)
@@ -60,7 +62,7 @@ tile_set = SubResource("TileSet_lr1yk")
 script = ExtResource("2_pp484")
 
 [node name="Camera2D" type="Camera2D" parent="Mech"]
-zoom = Vector2(2.6, 2.6)
+zoom = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mech"]
 shape = SubResource("RectangleShape2D_dqb14")
@@ -75,8 +77,10 @@ texture = ExtResource("3_l68op")
 rotation = 1.5708
 texture = ExtResource("4_u731o")
 
-[node name="Torso" type="Sprite2D" parent="Mech"]
-rotation = 4.71239
+[node name="Torso" type="Node2D" parent="Mech"]
+
+[node name="TorsoSprite" type="Sprite2D" parent="Mech/Torso"]
+rotation = 1.5708
 texture = ExtResource("5_u731o")
 
 [node name="AimSpot" type="Node2D" parent="."]
