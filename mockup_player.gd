@@ -50,7 +50,7 @@ func _process(delta):
 		rf.position = Vector2(0, -8)
 
 
-func _input(event):
+func _unhandled_input(event):
 	var rezoom = false
 	if event.is_action_pressed("zoom_in"):
 		zoom = min(zoom + 0.1, zoom_min)
@@ -61,6 +61,11 @@ func _input(event):
 	elif event.is_action_pressed("zoom_reset"):
 		zoom = 2.0
 		rezoom = true
+	elif event.is_action_pressed("fire"):
+		var new_bullet = preload("res://bullet_1.tscn").instantiate()
+		new_bullet.transform = transform
+		new_bullet.rotation = pit.rotation
+		$"../BulletsCollection".add_child(new_bullet)
 	if rezoom:
 		print(zoom)
 		$Camera2D.zoom = Vector2(zoom, zoom)
