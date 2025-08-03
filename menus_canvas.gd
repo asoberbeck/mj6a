@@ -26,6 +26,6 @@ func _on_quit_button_pressed():
 func _on_debug_button_pressed():
 	Mockup.debug_mode = not Mockup.debug_mode
 	if Mockup.debug_mode:
-		$DebugHBox/DebugLabel.show()
+		$DebugHBox/SpawnBugButton.show()
 	else:
-		$DebugHBox/DebugLabel.hide()
+		$DebugHBox/SpawnBugButton.hide()
