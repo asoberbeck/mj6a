@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=4 uid="uid://ue2jnx3xbrfq"]
+[gd_scene load_steps=17 format=4 uid="uid://ue2jnx3xbrfq"]
 
-[ext_resource type="Script" path="res://mockup.gd" id="1_4g3pk"]
+[ext_resource type="Script" uid="uid://cuuts1n3867n7" path="res://mockup.gd" id="1_4g3pk"]
 [ext_resource type="Texture2D" uid="uid://csdakyqomg8pt" path="res://tilesheet.png" id="1_dqb14"]
 [ext_resource type="Script" uid="uid://dar2r1d2qf1rf" path="res://mockup_player.gd" id="2_pp484"]
 [ext_resource type="Texture2D" uid="uid://cffoi58fnf05a" path="res://assets/road_bin_mapped.png" id="3_icy5f"]
@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://e4w1qcer0bod" path="res://road_tm.gd" id="3_rho02"]
 [ext_resource type="Texture2D" uid="uid://r1rmiwtrb7v0" path="res://assets/right_foot.png" id="4_u731o"]
 [ext_resource type="Texture2D" uid="uid://bk41vqc8a7tcv" path="res://assets/torso.png" id="5_u731o"]
-[ext_resource type="Script" path="res://aim_spot.gd" id="6_cq8ym"]
+[ext_resource type="Script" uid="uid://dlttmj4f4xl5r" path="res://aim_spot.gd" id="6_cq8ym"]
 [ext_resource type="Texture2D" uid="uid://stlqmg6xdtgs" path="res://assets/reticle.png" id="8_rho02"]
-[ext_resource type="Script" uid="uid://bbp336fjnxmgk" path="res://options_v_box.gd" id="9_icy5f"]
+[ext_resource type="Script" path="res://options_v_box.gd" id="9_icy5f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pp484"]
 texture = ExtResource("1_dqb14")

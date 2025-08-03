@@ -2,7 +2,7 @@ extends TileMapLayer
 
 @export var city_width := 11
 @export var city_height := 11
-@export var empty_plot_prob := 0.3
+@export var empty_plot_prob := 0.4
 
 @onready var tilemap = $"."
 var source_id = 0
@@ -63,18 +63,35 @@ func _ready():
 				Scon = city[x][y-1]
 				Econ = city[x+1][y]
 				Wcon = city[x-1][y]
-				city_tiles[x-1][y-1] = bool_array_to_binary([Ncon, Scon, Econ, Wcon])
-	
+				var connects = [Ncon, Scon, Econ, Wcon]
+				city_tiles[x-1][y-1] = bool_array_to_binary(connects)
+				
+
 	var idx2coord = []
 	for x in range(4):
 		for y in range(4):
 			idx2coord.append(Vector2i(x, y))
 	print(idx2coord)
 	
+	var WlinkID = [2, 3, 6, 7, 10, 11, 14, 15]
+	var SlinkID = [8, 9, 10, 11, 12, 13, 14, 15]
+	var vert = Vector2i(3, 0)
+	var horz = Vector2i(0, 3)
+	
 	for x in range(city_width - 1):
 		for y in range(city_height - 1):
 			var tileid = city_tiles[x][y]
-			tilemap.set_cell(Vector2i(x, y), source_id, idx2coord[tileid])
+			tilemap.set_cell(Vector2i(x * 5, y * 5), source_id, idx2coord[tileid])
+			
+			if tileid in WlinkID:
+				for i in range(1, 5):
+					tilemap.set_cell(Vector2i(x*5 + i, y*5), source_id, horz)
+					
+			if tileid in SlinkID:
+				for i in range(1, 5):
+					tilemap.set_cell(Vector2i(x*5, y*5 + i), source_id, vert)
+			
+	
 
 
 func pad_city(plan):
