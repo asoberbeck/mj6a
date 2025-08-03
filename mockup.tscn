@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://ue2jnx3xbrfq"]
+[gd_scene load_steps=13 format=4 uid="uid://ue2jnx3xbrfq"]
 
 [ext_resource type="Script" path="res://mockup.gd" id="1_4g3pk"]
 [ext_resource type="Texture2D" uid="uid://csdakyqomg8pt" path="res://tilesheet.png" id="1_dqb14"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bk41vqc8a7tcv" path="res://assets/torso.png" id="5_u731o"]
 [ext_resource type="Script" path="res://aim_spot.gd" id="6_cq8ym"]
 [ext_resource type="Texture2D" uid="uid://stlqmg6xdtgs" path="res://assets/reticle.png" id="8_rho02"]
+[ext_resource type="Script" uid="uid://bbp336fjnxmgk" path="res://options_v_box.gd" id="9_icy5f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pp484"]
 texture = ExtResource("1_dqb14")
@@ -88,3 +89,41 @@ script = ExtResource("6_cq8ym")
 
 [node name="Sprite2D" type="Sprite2D" parent="AimSpot"]
 texture = ExtResource("8_rho02")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="OptionsVBox" type="VBoxContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(120, 0)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("9_icy5f")
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+visible = false
+layout_mode = 2
+text = "Quit"
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+visible = false
+layout_mode = 2
+text = "Main Menu"
+
+[node name="FullscreenButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+visible = false
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="OptionsButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+layout_mode = 2
+text = "Options"
+
+[connection signal="pressed" from="CanvasLayer/OptionsVBox/QuitButton" to="CanvasLayer/OptionsVBox" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsVBox/FullscreenButton" to="CanvasLayer/OptionsVBox" method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsVBox/OptionsButton" to="CanvasLayer/OptionsVBox" method="_on_options_button_pressed"]
