@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://ue2jnx3xbrfq"]
+[gd_scene load_steps=15 format=4 uid="uid://ue2jnx3xbrfq"]
 
 [ext_resource type="Script" path="res://mockup.gd" id="1_4g3pk"]
 [ext_resource type="Texture2D" uid="uid://csdakyqomg8pt" path="res://tilesheet.png" id="1_dqb14"]
 [ext_resource type="Script" uid="uid://dar2r1d2qf1rf" path="res://mockup_player.gd" id="2_pp484"]
+[ext_resource type="Texture2D" uid="uid://cffoi58fnf05a" path="res://assets/road_bin_mapped.png" id="3_icy5f"]
 [ext_resource type="Texture2D" uid="uid://cdwqq35w8ioro" path="res://assets/left_foot.png" id="3_l68op"]
+[ext_resource type="Script" uid="uid://e4w1qcer0bod" path="res://road_tm.gd" id="3_rho02"]
 [ext_resource type="Texture2D" uid="uid://r1rmiwtrb7v0" path="res://assets/right_foot.png" id="4_u731o"]
 [ext_resource type="Texture2D" uid="uid://bk41vqc8a7tcv" path="res://assets/torso.png" id="5_u731o"]
 [ext_resource type="Script" path="res://aim_spot.gd" id="6_cq8ym"]
@@ -48,6 +50,30 @@ texture = ExtResource("1_dqb14")
 [sub_resource type="TileSet" id="TileSet_lr1yk"]
 sources/0 = SubResource("TileSetAtlasSource_pp484")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fo7ma"]
+texture = ExtResource("3_icy5f")
+texture_region_size = Vector2i(32, 32)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ma42w"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_fo7ma")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqb14"]
 
 [node name="Mockup" type="Node2D"]
@@ -56,6 +82,10 @@ script = ExtResource("1_4g3pk")
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAARAAoAAAAAAAcAAAARAAsAAAAAAAcAAAARAAwAAAAAAAcAAAARAA0AAAAAAAcAAAARAA4AAAAAAAcAAAARAA8AAAAAAAcAAAARABAAAAAAAAcAAAASAAoAAAABAAcAAAASAAsAAAABAAcAAAASAAwAAAABAAcAAAASAA0AAAABAAcAAAASAA4AAAABAAcAAAASAA8AAAABAAcAAAASABAAAAABAAcAAAAcAAsAAAAFAAYAAAAdAAsAAAAGAAYAAAAcAAwAAAAFAAcAAAAdAAwAAAAGAAcAAAAbABMAAAADAAAAAAAdABUAAAADAAAAAAAcABQAAAADAAAAAAAcABAAAAAGAAEAAAAdABAAAAAGAAEAAAAeABAAAAAFAAIAAAAeABEAAAAFAAMAAAAfABEAAAAGAAMAAAAfABAAAAAGAAIAAAARAAkAAAAAAAUAAAARAAgAAAAAAAQAAAASAAgAAAABAAQAAAASAAkAAAABAAUAAAATAAgAAAAAAAcAAFAUAAgAAAAAAAcAAFAVAAgAAAAAAAcAAFAWAAgAAAAAAAcAAFAXAAgAAAAAAAcAAFAYAAgAAAAAAAcAAFAZAAgAAAAAAAcAAFAaAAgAAAAAAAcAAFAbAAgAAAAAAAcAAFAcAAgAAAAAAAcAAFAdAAgAAAAAAAcAAFAeAAgAAAAAAAcAAFAfAAgAAAAAAAcAAFAgAAgAAAAAAAcAAFAhAAgAAAAAAAcAAFAiAAgAAAAAAAcAAFAjAAgAAAAAAAcAAFAkAAgAAAAAAAcAAFAlAAgAAAAAAAcAAFATAAkAAAABAAcAAFAUAAkAAAABAAcAAFAVAAkAAAABAAcAAFAWAAkAAAABAAcAAFAXAAkAAAABAAcAAFAYAAkAAAABAAcAAFAZAAkAAAABAAcAAFAaAAkAAAABAAcAAFAbAAkAAAABAAcAAFAcAAkAAAABAAcAAFAdAAkAAAABAAcAAFAeAAkAAAABAAcAAFAfAAkAAAABAAcAAFAgAAkAAAABAAcAAFAhAAkAAAABAAcAAFAiAAkAAAABAAcAAFAjAAkAAAABAAcAAFAkAAkAAAABAAcAAFAlAAkAAAABAAcAAFAfAAsAAAAEAAYAAAAgAAsAAAAEAAYAAAD4/wIAAAABAAcAAAD4/wMAAAABAAcAAAD4/wQAAAABAAcAAAD4/wUAAAABAAcAAAD4/wYAAAABAAcAAAD4/wcAAAABAAcAAAD4/wgAAAABAAcAAAD4/wkAAAABAAcAAAD4/woAAAABAAcAAAD4/wsAAAABAAcAAAD4/wwAAAABAAcAAAD4/w0AAAABAAcAAAD4/w4AAAABAAcAAAD3/w4AAAAAAAcAAAD3/w0AAAAAAAcAAAD3/wwAAAAAAAcAAAD3/wsAAAAAAAcAAAD3/woAAAAAAAcAAAD3/wkAAAAAAAcAAAD3/wgAAAAAAAcAAAD3/wcAAAAAAAcAAAD3/wYAAAAAAAcAAAD3/wUAAAAAAAcAAAD3/wQAAAAAAAcAAAD3/wMAAAAAAAcAAAD3/wIAAAAAAAcAAAD3/w8AAAABAAUAADD4/w8AAAAAAAUAADD4/xAAAAAAAAQAADD2/w8AAAABAAcAAGD1/w8AAAABAAcAAGD0/w8AAAABAAcAAGDz/w8AAAABAAcAAGDw/w8AAAABAAcAAGDv/w8AAAABAAcAAGDu/w8AAAABAAcAAGDx/w8AAAABAAcAAGDy/w8AAAABAAcAAGDt/w8AAAABAAcAAGD3/xAAAAABAAQAADD2/xAAAAAAAAcAAGD1/xAAAAAAAAcAAGD0/xAAAAAAAAcAAGDz/xAAAAAAAAcAAGDy/xAAAAAAAAcAAGDx/xAAAAAAAAcAAGDw/xAAAAAAAAcAAGDv/xAAAAAAAAcAAGDu/xAAAAAAAAcAAGDt/xAAAAAAAAcAAGD6/w4AAAAFAAYAAAD7/w4AAAAGAAcAAAD6/w8AAAAFAAcAAAD7/w8AAAAGAAcAAAD6/wwAAAAEAAYAAAD7/woAAAAEAAYAAAD6/wkAAAAEAAYAAAD5/wcAAAAAAAEAAAD2/wwAAAABAAEAADA=")
 tile_set = SubResource("TileSet_lr1yk")
+
+[node name="RoadTM" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_ma42w")
+script = ExtResource("3_rho02")
 
 [node name="Node2D" type="Node2D" parent="."]
 
