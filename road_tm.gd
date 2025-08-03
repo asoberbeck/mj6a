@@ -2,6 +2,7 @@ extends TileMapLayer
 
 @export var city_width := 11
 @export var city_height := 11
+@export var block_size := 6
 @export var empty_plot_prob := 0.4
 
 @onready var tilemap = $"."
@@ -81,17 +82,16 @@ func _ready():
 	for x in range(city_width - 1):
 		for y in range(city_height - 1):
 			var tileid = city_tiles[x][y]
-			tilemap.set_cell(Vector2i(x * 5, y * 5), source_id, idx2coord[tileid])
+			tilemap.set_cell(Vector2i(x * block_size, y * block_size), source_id, idx2coord[tileid])
 			
 			if tileid in WlinkID:
-				for i in range(1, 5):
-					tilemap.set_cell(Vector2i(x*5 + i, y*5), source_id, horz)
+				for i in range(1, block_size):
+					tilemap.set_cell(Vector2i(x*block_size + i, y*block_size), source_id, horz)
 					
 			if tileid in SlinkID:
-				for i in range(1, 5):
-					tilemap.set_cell(Vector2i(x*5, y*5 + i), source_id, vert)
-			
-	
+				for i in range(1, block_size):
+					tilemap.set_cell(Vector2i(x*block_size, y*block_size + i), source_id, vert)
+
 
 
 func pad_city(plan):
