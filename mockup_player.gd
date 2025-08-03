@@ -67,7 +67,6 @@ func _unhandled_input(event):
 		new_bullet.rotation = pit.rotation
 		$"../BulletsCollection".add_child(new_bullet)
 	if rezoom:
-		print(zoom)
 		$Camera2D.zoom = Vector2(zoom, zoom)
 
 func perp(vec : Vector2):
