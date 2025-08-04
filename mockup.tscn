@@ -120,11 +120,8 @@ tile_set = SubResource("TileSet_ma42w")
 script = ExtResource("3_rho02")
 
 [node name="BulletsCollection" type="Node2D" parent="."]
-<<<<<<< HEAD
-=======
 
 [node name="BugsCollection" type="Node2D" parent="."]
->>>>>>> faca523caa5e8198277b1f05763ff08363cf8d9f
 
 [node name="Mech" type="CharacterBody2D" parent="."]
 script = ExtResource("2_pp484")
