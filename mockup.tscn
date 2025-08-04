@@ -7,10 +7,11 @@
 [ext_resource type="Script" uid="uid://e4w1qcer0bod" path="res://road_tm.gd" id="3_rho02"]
 [ext_resource type="Texture2D" uid="uid://cu0s3cn1spaoy" path="res://assets/citySet.png" id="4_ma42w"]
 [ext_resource type="Texture2D" uid="uid://bk41vqc8a7tcv" path="res://assets/torso.png" id="5_u731o"]
-[ext_resource type="Script" uid="uid://dlttmj4f4xl5r" path="res://aim_spot.gd" id="6_cq8ym"]
+[ext_resource type="Script" path="res://aim_spot.gd" id="6_cq8ym"]
 [ext_resource type="Texture2D" uid="uid://c4g2hiij3qauy" path="res://assets/appendages.png" id="6_fo7ma"]
 [ext_resource type="Texture2D" uid="uid://stlqmg6xdtgs" path="res://assets/reticle.png" id="8_rho02"]
 [ext_resource type="Script" path="res://options_v_box.gd" id="9_icy5f"]
+[ext_resource type="Script" uid="uid://b5vsrsvgxy6h0" path="res://menus_canvas.gd" id="10_fo7ma"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pp484"]
 texture = ExtResource("1_dqb14")
@@ -119,6 +120,11 @@ tile_set = SubResource("TileSet_ma42w")
 script = ExtResource("3_rho02")
 
 [node name="BulletsCollection" type="Node2D" parent="."]
+<<<<<<< HEAD
+=======
+
+[node name="BugsCollection" type="Node2D" parent="."]
+>>>>>>> faca523caa5e8198277b1f05763ff08363cf8d9f
 
 [node name="Mech" type="CharacterBody2D" parent="."]
 script = ExtResource("2_pp484")
@@ -156,9 +162,10 @@ script = ExtResource("6_cq8ym")
 [node name="Sprite2D" type="Sprite2D" parent="AimSpot"]
 texture = ExtResource("8_rho02")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="MenusCanvas" type="CanvasLayer" parent="."]
+script = ExtResource("10_fo7ma")
 
-[node name="OptionsVBox" type="VBoxContainer" parent="CanvasLayer"]
+[node name="OptionsVBox" type="VBoxContainer" parent="MenusCanvas"]
 custom_minimum_size = Vector2(120, 0)
 anchors_preset = 3
 anchor_left = 1.0
@@ -169,27 +176,47 @@ offset_left = -70.0
 offset_top = -31.0
 grow_horizontal = 0
 grow_vertical = 0
-script = ExtResource("9_icy5f")
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+[node name="QuitButton" type="Button" parent="MenusCanvas/OptionsVBox"]
 visible = false
 layout_mode = 2
 text = "Quit"
 
-[node name="MainMenuButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+[node name="MainMenuButton" type="Button" parent="MenusCanvas/OptionsVBox"]
 visible = false
 layout_mode = 2
 text = "Main Menu"
 
-[node name="FullscreenButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+[node name="FullscreenButton" type="Button" parent="MenusCanvas/OptionsVBox"]
 visible = false
 layout_mode = 2
 text = "Fullscreen"
 
-[node name="OptionsButton" type="Button" parent="CanvasLayer/OptionsVBox"]
+[node name="OptionsButton" type="Button" parent="MenusCanvas/OptionsVBox"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 text = "Options"
 
-[connection signal="pressed" from="CanvasLayer/OptionsVBox/QuitButton" to="CanvasLayer/OptionsVBox" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/OptionsVBox/FullscreenButton" to="CanvasLayer/OptionsVBox" method="_on_fullscreen_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/OptionsVBox/OptionsButton" to="CanvasLayer/OptionsVBox" method="_on_options_button_pressed"]
+[node name="DebugHBox" type="HBoxContainer" parent="MenusCanvas"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 58.0
+grow_vertical = 0
+
+[node name="DebugButton" type="Button" parent="MenusCanvas/DebugHBox"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Debug"
+
+[node name="SpawnBugButton" type="Button" parent="MenusCanvas/DebugHBox"]
+visible = false
+layout_mode = 2
+text = "Spawn Bug"
+
+[connection signal="pressed" from="MenusCanvas/OptionsVBox/QuitButton" to="MenusCanvas" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MenusCanvas/OptionsVBox/FullscreenButton" to="MenusCanvas" method="_on_fullscreen_button_pressed"]
+[connection signal="pressed" from="MenusCanvas/OptionsVBox/OptionsButton" to="MenusCanvas" method="_on_options_button_pressed"]
+[connection signal="pressed" from="MenusCanvas/DebugHBox/DebugButton" to="MenusCanvas" method="_on_debug_button_pressed"]
+[connection signal="pressed" from="MenusCanvas/DebugHBox/SpawnBugButton" to="." method="_on_spawn_bug_button_pressed"]

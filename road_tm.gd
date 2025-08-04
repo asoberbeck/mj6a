@@ -3,10 +3,15 @@ extends TileMapLayer
 @export var city_width := 11
 @export var city_height := 11
 @export var block_size := 6
-@export var empty_plot_prob := 0.4
+@export var empty_road_prob := 0.4
+@export var veg_prob := 0.8
+@export var building_prob := 0.2 
+
+var veg_prob8b = int(255 * veg_prob)
+var building_prob8b = int(255 * building_prob)
+var tileKey = []
 
 @onready var tilemap = $"."
-var source_id = 0
 """
 Tile Guide:
 	0:  Null
@@ -27,19 +32,26 @@ Tile Guide:
 	15: 4-Way
 """
 
+var blockRNG = NoiseTexture2D.new()
 var rng = RandomNumberGenerator.new()
+var map_width : int
+var map_height : int
+var fourByFourID = []
+var sixBySixID = []
 
 func _ready():
 	
 	var city = []
-	var city_tiles = []
+	var intersections = []
+	var fullRoad = []
+	var fullBlock = []
 	
 	# Generate city plan
 	city.resize(city_width)
 	for x in range(city_width):
 		city[x] = []
 		for y in range(city_height):
-			if rng.randf() >= empty_plot_prob:
+			if rng.randf() >= empty_road_prob:
 				city[x].append(true)
 			else:
 				city[x].append(false)
@@ -52,46 +64,117 @@ func _ready():
 	var Scon : bool
 	var Econ : bool
 	var Wcon : bool
-	city_tiles.resize(city_width-1)
+	intersections.resize(city_width-1)
 	for x in range(1, city_width):
-		city_tiles[x-1] = []
-		city_tiles[x-1].resize(city_height-1)
+		intersections[x-1] = []
+		intersections[x-1].resize(city_height-1)
 		for y in range(1, city_height):
 			if !city[x][y]:
-				city_tiles[x-1][y-1] = 0
+				intersections[x-1][y-1] = 0
 			else:
 				Ncon = city[x][y+1]
 				Scon = city[x][y-1]
 				Econ = city[x+1][y]
 				Wcon = city[x-1][y]
 				var connects = [Ncon, Scon, Econ, Wcon]
-				city_tiles[x-1][y-1] = bool_array_to_binary(connects)
-				
+				intersections[x-1][y-1] = bool_array_to_binary(connects)
 
-	var idx2coord = []
-	for x in range(4):
-		for y in range(4):
-			idx2coord.append(Vector2i(x, y))
-	print(idx2coord)
 	
-	var WlinkID = [2, 3, 6, 7, 10, 11, 14, 15]
+	map_width = (1 + block_size) * (city_width  - 1)
+	map_height = (1 + block_size) * (city_height - 1)
+	
+	fullRoad.resize(map_width)
+	for x in range(map_width):
+		fullRoad[x] = []
+		fullRoad[x].resize(map_height)
+		fullRoad[x].fill(0)
+	fullBlock = fullRoad.duplicate(true)
+	
+	var WlinkID = [2, 3, 6,  7,  10, 11, 14, 15]
 	var SlinkID = [8, 9, 10, 11, 12, 13, 14, 15]
-	var vert = Vector2i(3, 0)
-	var horz = Vector2i(0, 3)
+	#var vert = Vector2i(3, 0)
+	#var horz = Vector2i(0, 3)
 	
 	for x in range(city_width - 1):
 		for y in range(city_height - 1):
-			var tileid = city_tiles[x][y]
-			tilemap.set_cell(Vector2i(x * block_size, y * block_size), source_id, idx2coord[tileid])
+			var tileid = intersections[x][y]
+			fullRoad[x*block_size][y*block_size] = tileid
+			fullBlock[x*block_size][y*block_size] = -1
 			
 			if tileid in WlinkID:
 				for i in range(1, block_size):
-					tilemap.set_cell(Vector2i(x*block_size + i, y*block_size), source_id, horz)
+					fullRoad[x*block_size + i][y*block_size] = 3
+					fullBlock[x*block_size + i][y*block_size] = -1
 					
 			if tileid in SlinkID:
 				for i in range(1, block_size):
-					tilemap.set_cell(Vector2i(x*block_size, y*block_size + i), source_id, vert)
+					fullRoad[x*block_size][y*block_size + i] = 12
+					fullBlock[x*block_size][y*block_size + i] = -1
+	
+	blockRNG.set_width(block_size * (city_width - 1))
+	blockRNG.set_height(block_size * (city_height - 1))
+	blockRNG.set_noise(FastNoiseLite.new())
+	blockRNG.set_normalize(true)
+	await blockRNG.changed
+	var image = blockRNG.get_image()
+	var blockGen = image.get_data()	
+	#for col in range(map_width):
+		#print(fullBlock[col])
+	
+	var mapCoord = idx2coord(map_width, map_height)
+	print(len(mapCoord), " ", len(blockGen))
+	for n in range(len(blockGen)):
+		var coord = mapCoord[n]
+		var rn = blockGen[n]
+		var blockID = fullBlock[coord[0]][coord[1]]
+		if blockID == -1:
+			pass
+		elif rn <= building_prob8b:
+			blockID = 3
+		elif(rn <= veg_prob8b):
+			blockID = 18
+		 
+		
+	#for x in range(map_width):
+		#for y in range(map_height):
+			#var rn = blockGen[x * (map_height) + y]
+			#if fullBlock[x][y] == -1:
+				#pass
+			#elif(rn <= building_prob8b):
+				#fullBlock[x][y] = 3
+			#elif(rn <= veg_prob8b):
+				#fullBlock[x][y] = 18
+			#print(x * (map_height) + y)
+	
+	fourByFourID = idx2coord(4, 4)
+	sixBySixID = idx2coord(6, 6)
+	
+	tileKey.append(fourByFourID)
+	tileKey.append(sixBySixID)
 
+	# Construct !
+	build_city(fullRoad, 0)
+	build_city(fullBlock, 1)
+
+
+
+func build_city(plan, source_id):
+	for x in range(map_width):
+		for y in range(map_height):
+			var convertArray = tileKey[source_id]
+			var tid = plan[x][y]
+			if tid == -1:
+				pass
+			else:
+				tilemap.set_cell(Vector2i(x, y), source_id, convertArray[tid])
+
+func idx2coord(width, height):
+# Mapping for tile ID to TileSet location
+	var map = []
+	for x in range(width):
+		for y in range(height):
+			map.append(Vector2i(x, y))
+	return map
 
 
 func pad_city(plan):
@@ -104,7 +187,6 @@ func pad_city(plan):
 	for x in range(city_width + 2):
 		plan[x].insert(0, false)
 		plan[x].append(false)
-	
 	return plan
 	
 	
