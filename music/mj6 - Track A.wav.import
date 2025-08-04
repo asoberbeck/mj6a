@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bjlf5gk1wh2lc"
+path="res://.godot/imported/mj6 - Track A.wav-9046c7f95282fc21156152b62862d6c5.sample"
+
+[deps]
+
+source_file="res://music/mj6 - Track A.wav"
+dest_files=["res://.godot/imported/mj6 - Track A.wav-9046c7f95282fc21156152b62862d6c5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
