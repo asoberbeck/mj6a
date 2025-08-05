@@ -3,6 +3,7 @@ extends Area2D
 @export var speed = 500
 @export var ttl = 1.0
 var age = 0
+@onready var sfx = $Boom
 
 func _physics_process(delta):
 	age += delta
@@ -13,7 +14,8 @@ func _physics_process(delta):
 
 func _on_body_entered(body):
 	print("bullet_1 _on_body_entered(), body ==", body)
+		
 	if body.is_in_group("shootable"):
-		print("kaboom")
+		sfx.play()
 		body.queue_free()
 		queue_free()

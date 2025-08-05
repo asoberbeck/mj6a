@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cp4k5pr5junr"]
+
+[ext_resource type="Script" uid="uid://sucgb16tunuu" path="res://mainmenu.gd" id="1_igs2m"]
+[ext_resource type="Texture2D" uid="uid://dvk5f0jplsv7i" path="res://assets/options.png" id="1_wgsso"]
+[ext_resource type="Texture2D" uid="uid://c2c5nx76x3y80" path="res://assets/newGame.png" id="2_igs2m"]
+[ext_resource type="Texture2D" uid="uid://b5dgbimx0mgcm" path="res://assets/credits.png" id="3_3pujl"]
+
+[node name="mainmenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 120
+script = ExtResource("1_igs2m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="menuButtons" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="newGame" type="Button" parent="HBoxContainer/menuButtons"]
+layout_mode = 2
+icon = ExtResource("2_igs2m")
+
+[node name="options" type="Button" parent="HBoxContainer/menuButtons"]
+layout_mode = 2
+icon = ExtResource("1_wgsso")
+
+[node name="credits" type="Button" parent="HBoxContainer/menuButtons"]
+layout_mode = 2
+icon = ExtResource("3_3pujl")
+
+[connection signal="pressed" from="HBoxContainer/menuButtons/newGame" to="." method="_new_game_pressed"]
+[connection signal="pressed" from="HBoxContainer/menuButtons/options" to="." method="_options_pressed"]
+[connection signal="pressed" from="HBoxContainer/menuButtons/credits" to="." method="_credits_pressed"]

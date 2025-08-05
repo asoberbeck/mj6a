@@ -69,6 +69,7 @@ func _unhandled_input(event):
 	if rezoom:
 		$Camera2D.zoom = Vector2(zoom, zoom)
 
+
 func perp(vec : Vector2):
 	var perpVec := Vector2.ZERO
 	perpVec.x = vec.y

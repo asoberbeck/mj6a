@@ -4,8 +4,9 @@ extends TileMapLayer
 @export var city_height := 11
 @export var block_size := 6
 @export var empty_road_prob := 0.4
-@export var veg_prob := 0.8
-@export var building_prob := 0.2 
+@export var veg_prob := 0.7
+@export var building_prob := 0.4 
+@export var blockRNG : NoiseTexture2D
 
 var veg_prob8b = int(255 * veg_prob)
 var building_prob8b = int(255 * building_prob)
@@ -32,7 +33,7 @@ Tile Guide:
 	15: 4-Way
 """
 
-var blockRNG = NoiseTexture2D.new()
+#var blockRNG = NoiseTexture2D.new()
 var rng = RandomNumberGenerator.new()
 var map_width : int
 var map_height : int
@@ -111,40 +112,31 @@ func _ready():
 					fullRoad[x*block_size][y*block_size + i] = 12
 					fullBlock[x*block_size][y*block_size + i] = -1
 	
-	blockRNG.set_width(block_size * (city_width - 1))
-	blockRNG.set_height(block_size * (city_height - 1))
+	#blockRNG.set_width(map_width)
+	#blockRNG.set_height(map_height)
 	blockRNG.set_noise(FastNoiseLite.new())
-	blockRNG.set_normalize(true)
 	await blockRNG.changed
 	var image = blockRNG.get_image()
+	image = rgba_to_grayscale(image)
 	var blockGen = image.get_data()	
+	
+	print(blockGen)
+
 	#for col in range(map_width):
 		#print(fullBlock[col])
 	
 	var mapCoord = idx2coord(map_width, map_height)
-	print(len(mapCoord), " ", len(blockGen))
+	print(len(mapCoord), ", ", len(blockGen), ", ", map_width, ", ", map_height)
 	for n in range(len(blockGen)):
 		var coord = mapCoord[n]
 		var rn = blockGen[n]
-		var blockID = fullBlock[coord[0]][coord[1]]
-		if blockID == -1:
+		if fullBlock[coord[0]][coord[1]] == -1:
 			pass
 		elif rn <= building_prob8b:
-			blockID = 3
-		elif(rn <= veg_prob8b):
-			blockID = 18
+			fullBlock[coord[0]][coord[1]] = 3
+		elif rn <= veg_prob8b:
+			fullBlock[coord[0]][coord[1]] = [18, 19, 20].pick_random()
 		 
-		
-	#for x in range(map_width):
-		#for y in range(map_height):
-			#var rn = blockGen[x * (map_height) + y]
-			#if fullBlock[x][y] == -1:
-				#pass
-			#elif(rn <= building_prob8b):
-				#fullBlock[x][y] = 3
-			#elif(rn <= veg_prob8b):
-				#fullBlock[x][y] = 18
-			#print(x * (map_height) + y)
 	
 	fourByFourID = idx2coord(4, 4)
 	sixBySixID = idx2coord(6, 6)
@@ -155,7 +147,6 @@ func _ready():
 	# Construct !
 	build_city(fullRoad, 0)
 	build_city(fullBlock, 1)
-
 
 
 func build_city(plan, source_id):
@@ -195,3 +186,18 @@ func bool_array_to_binary(bits: Array) -> int:
 	for i in bits.size():
 		result = (result << 1) | int(bits[i])
 	return result
+	
+	
+func rgba_to_grayscale(rgba_image: Image) -> Image:
+	var width = rgba_image.get_width()
+	var height = rgba_image.get_height()
+
+	var grayscale_image = Image.create(width, height, false, Image.FORMAT_L8)
+	
+	for y in range(height):
+		for x in range(width):
+			var color = rgba_image.get_pixel(x, y)
+			var luminance = color.r * 0.299 + color.g * 0.587 + color.b * 0.114
+			grayscale_image.set_pixel(x, y, Color(luminance, luminance, luminance, 1.0))
+	
+	return grayscale_image
